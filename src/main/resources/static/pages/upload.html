@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Upload Resource</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#edf3f1;
+    overflow:hidden;
+    position:relative;
+}
+
+/* Background Shapes */
+
+body::before{
+    content:'';
+    position:absolute;
+    width:650px;
+    height:650px;
+    border-radius:50%;
+    background:rgba(29,111,107,0.08);
+    top:-250px;
+    left:-250px;
+}
+
+body::after{
+    content:'';
+    position:absolute;
+    width:600px;
+    height:600px;
+    border-radius:50%;
+    background:rgba(29,111,107,0.06);
+    bottom:-250px;
+    right:-250px;
+}
+
+/* Card */
+
+.container{
+	width:480px;
+	   background:white;
+	   padding:25px;
+	   border-radius:18px
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+    position:relative;
+    z-index:2;
+}
+
+/* Logo */
+
+.logo-section{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.logo{
+    font-size:42px;
+    color:#1d6f6b;
+}
+
+.logo-title{
+    font-size:2rem;
+    font-weight:700;
+    color:#102826;
+}
+
+.logo-subtitle{
+    color:#666;
+    font-size:14px;
+    margin-top:5px;
+}
+
+/* Form */
+
+h2{
+    margin-bottom:20px;
+	
+    color:#102826;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:5px;
+    color:#344;
+    font-size:14px;
+}
+
+input,
+select{
+    width:100%;
+    padding:10px;
+    border:2px solid #cfe1dc;
+    border-radius:8px;
+    outline:none;
+    transition:.3s;
+}
+
+input:focus,
+select:focus{
+    border-color:#1d6f6b;
+}
+
+.file-box{
+    margin-top:8px;
+}
+
+button{
+    width:100%;
+    margin-top:25px;
+    padding:14px;
+    background:#1d6f6b;
+    border:none;
+    color:white;
+    font-size:16px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#145854;
+}
+
+.back-btn{
+    margin-top:15px;
+    background:#dfe9e6;
+    color:#1d6f6b;
+}
+
+.back-btn:hover{
+    background:#d1dfdb;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo-section">
+
+        <div class="logo">📚</div>
+
+        <div class="logo-title">
+            LearnNShare
+        </div>
+
+        <div class="logo-subtitle">
+            Student Notes & Exam Resource Sharing Platform
+        </div>
+
+    </div>
+
+    <h2>Upload Study Material</h2>
+
+    <label>Title</label>
+
+    <input type="text"
+           id="title"
+           placeholder="Enter title">
+
+    <label>Subject</label>
+
+    <input type="text"
+           id="subject"
+           placeholder="Enter subject">
+
+    <label>Semester</label>
+
+    <input type="text"
+           id="semester"
+           placeholder="Enter semester">
+
+    <label>Material Type</label>
+
+    <select id="resourceType">
+
+        <option>Notes</option>
+
+        <option>Question Paper</option>
+
+        <option>Assignment</option>
+
+        <option>Lab Manual</option>
+
+    </select>
+
+    <div class="file-box">
+
+        <input type="file"
+               id="file">
+
+    </div>
+
+    <button onclick="uploadFile()">
+        Upload
+    </button>
+
+    <button class="back-btn"
+            onclick="window.location.href='/pages/dashboard.html'">
+        Back to Dashboard
+    </button>
+
+</div>
+
+<script src="/js/upload.js"></script>
+
+</body>
+</html>

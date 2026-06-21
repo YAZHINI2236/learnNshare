@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>LearnNShare Resources</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#edf3f1;
+    min-height:100vh;
+    padding:40px;
+    position:relative;
+}
+
+/* Background */
+
+body::before{
+    content:'';
+    position:fixed;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:rgba(29,111,107,.08);
+    left:-200px;
+    top:-100px;
+    z-index:-1;
+}
+
+body::after{
+    content:'';
+    position:fixed;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:rgba(29,111,107,.06);
+    right:-200px;
+    bottom:-100px;
+    z-index:-1;
+}
+
+/* Header */
+
+.header{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.logo{
+    color:#1d6f6b;
+    font-size:3rem;
+    font-weight:700;
+}
+
+.subtitle{
+    color:#666;
+    margin-top:8px;
+}
+
+/* Main Card */
+
+.resource-container{
+    width:1100px;
+    max-width:100%;
+    margin:auto;
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+    display:grid;
+    grid-template-columns:70% 30%;
+}
+
+/* Left */
+
+.left-panel{
+    padding:30px;
+}
+
+.left-panel h2{
+    color:#1d6f6b;
+    margin-bottom:25px;
+    text-align:center;
+}
+
+.search-box{
+    display:flex;
+    gap:10px;
+    margin-bottom:25px;
+}
+
+.search-box input{
+    flex:1;
+    padding:12px;
+    border:2px solid #cfe1dc;
+    border-radius:8px;
+}
+
+.search-box button{
+    padding:12px 20px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.search-btn{
+    background:#1d6f6b;
+    color:white;
+}
+
+.reset-btn{
+    background:#edf3f1;
+    color:#1d6f6b;
+}
+
+/* Table */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    text-align:left;
+    padding:15px;
+    color:#1d6f6b;
+    border-bottom:2px solid #eee;
+}
+
+td{
+    padding:15px;
+    border-bottom:1px solid #eee;
+}
+
+.action-btn{
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+    color:white;
+}
+
+.download-btn{
+    background:#1d6f6b;
+}
+
+.delete-btn{
+    background:#d9534f;
+}
+
+/* Right Panel */
+
+.right-panel{
+    background:#1d6f6b;
+    color:white;
+    padding:35px 25px;
+}
+
+.right-panel h2{
+    margin-bottom:15px;
+}
+
+.right-panel p{
+    opacity:.9;
+    line-height:1.7;
+    margin-bottom:25px;
+}
+
+.info-box{
+    background:rgba(255,255,255,.15);
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:15px;
+}
+
+.info-box h4{
+    margin-bottom:5px;
+}
+
+.back-btn{
+    width:100%;
+    margin-top:20px;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:white;
+    color:#1d6f6b;
+    cursor:pointer;
+    font-weight:600;
+}
+
+@media(max-width:900px){
+
+.resource-container{
+    grid-template-columns:1fr;
+}
+
+.search-box{
+    flex-direction:column;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+    <div class="logo">
+        LearnNShare
+    </div>
+
+    <div class="subtitle">
+        Student Notes & Exam Resource Sharing Platform
+    </div>
+
+</div>
+
+<div class="resource-container">
+
+    <div class="left-panel">
+
+        <h2>Available Study Resources</h2>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="subject"
+                placeholder="Enter Subject">
+
+            <button
+                class="search-btn"
+                onclick="searchSubject()">
+                Search
+            </button>
+
+            <button
+                class="reset-btn"
+                onclick="loadResources()">
+                Reset
+            </button>
+
+        </div>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Subject</th>
+                    <th>Semester</th>
+                    <th>Type</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="resourceTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div class="right-panel">
+
+        <h2>Your Resource Actions</h2>
+
+        <p>
+            View details, download, search and manage
+            your uploaded study materials.
+        </p>
+
+        <div class="info-box">
+            <h4>📚 Notes</h4>
+            <p>Course notes and study guides.</p>
+        </div>
+
+        <div class="info-box">
+            <h4>📝 Assignments</h4>
+            <p>Assignment documents and solutions.</p>
+        </div>
+
+        <div class="info-box">
+            <h4>📄 Question Papers</h4>
+            <p>Previous year examination papers.</p>
+        </div>
+
+        <button
+            class="back-btn"
+            onclick="window.location.href='/pages/dashboard.html'">
+            Back to Dashboard
+        </button>
+
+    </div>
+
+</div>
+
+<script src="/js/resources.js"></script>
+
+<script>
+
+function createActionButtons(id){
+
+return `
+<button class="action-btn download-btn"
+onclick="downloadFile(${id})">
+Download
+</button>
+
+<button class="action-btn delete-btn"
+onclick="deleteResource(${id})">
+Delete
+</button>
+`;
+
+}
+
+</script>
+
+</body>
+</html>
