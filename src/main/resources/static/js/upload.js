@@ -46,8 +46,14 @@ async function uploadFile() {
 	    }
 	);
 
-    const result =
-        await response.text();
+	const result =
+	    await response.text();
 
-    alert(result);
+	alert(result);
+
+	if(response.ok){
+
+	    window.location.href =
+	        "/pages/resources.html";
+	}
 }
