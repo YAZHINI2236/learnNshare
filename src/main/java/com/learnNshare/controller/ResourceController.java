@@ -68,23 +68,18 @@ public class ResourceController {
     public ResponseEntity<Void> downloadFile(
             @PathVariable Long id) {
 
-        String fileUrl = resourceService.downloadFile(id);
+        StudyResource resource =
+                resourceService.downloadFile(id);
+
+        String downloadUrl =
+                resource.getFilePath()
+                        .replace("/upload/",
+                                 "/upload/fl_attachment/");
 
         return ResponseEntity.status(302)
-                .header("Location", fileUrl)
+                .header("Location", downloadUrl)
                 .build();
     }
-//    @GetMapping("/download/{id}")
-//    public ResponseEntity<Resource> downloadFile(
-//            @PathVariable Long id) throws Exception {
-//
-//        Resource file = resourceService.downloadFile(id);
-//
-//        return ResponseEntity.ok()
-//                .header(HttpHeaders.CONTENT_DISPOSITION,
-//                        "attachment; filename=\"" + file.getFilename() + "\"")
-//                .body(file);
-//    }
     @DeleteMapping("/{id}")
     public String deleteResource(
             @PathVariable Long id) {

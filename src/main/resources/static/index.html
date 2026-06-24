@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="1; url=/pages/login.html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnNShare</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        body{
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:#eef4f3;
+            overflow:hidden;
+        }
+
+        body::before{
+            content:"";
+            position:absolute;
+            width:500px;
+            height:500px;
+            background:rgba(31,122,119,0.08);
+            border-radius:50%;
+            top:-180px;
+            left:-180px;
+        }
+
+        body::after{
+            content:"";
+            position:absolute;
+            width:500px;
+            height:500px;
+            background:rgba(31,122,119,0.08);
+            border-radius:50%;
+            bottom:-180px;
+            right:-180px;
+        }
+
+        .container{
+            text-align:center;
+            z-index:1;
+        }
+
+        h1{
+            color:#1f7a77;
+            font-size:4rem;
+            margin-bottom:10px;
+        }
+
+        p{
+            color:#666;
+            font-size:1.1rem;
+            margin-bottom:30px;
+        }
+
+        .loader{
+            width:55px;
+            height:55px;
+            border:5px solid #d9e9e7;
+            border-top:5px solid #1f7a77;
+            border-radius:50%;
+            margin:auto;
+            animation:spin 1s linear infinite;
+        }
+
+        @keyframes spin{
+            100%{
+                transform:rotate(360deg);
+            }
+        }
+
+        .redirect{
+            margin-top:20px;
+            color:#1f7a77;
+            font-weight:600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>LearnNShare</h1>
+        <p>Student Notes & Exam Resource Sharing Platform</p>
+
+        <div class="loader"></div>
+
+        <div class="redirect">
+            Redirecting...
+        </div>
+    </div>
+
+</body>
+</html>

@@ -79,16 +79,12 @@ public class ResourceService {
         return resourceRepository.findByResourceType(resourceType);
     }
     
-    public String downloadFile(Long resourceId) {
+    public StudyResource downloadFile(Long resourceId) {
 
-        StudyResource studyResource =
-                resourceRepository.findById(resourceId)
+        return resourceRepository.findById(resourceId)
                 .orElseThrow(() ->
                         new RuntimeException("Resource Not Found"));
-
-        return studyResource.getFilePath();
     }
-    
 //    public Resource downloadFile(Long resourceId) throws Exception {
 //
 //        StudyResource studyResource =

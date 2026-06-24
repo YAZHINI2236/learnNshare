@@ -1,4 +1,18 @@
-loadUsers();
+const role =
+    sessionStorage.getItem("userRole");
+
+if(role !== "ADMIN"){
+
+    document.getElementById("adminContent")
+        .style.display = "none";
+
+    document.getElementById("accessDenied")
+        .style.display = "block";
+
+}else{
+
+    loadUsers();
+}
 
 async function loadUsers() {
 

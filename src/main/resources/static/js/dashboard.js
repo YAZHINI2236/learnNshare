@@ -1,5 +1,12 @@
 const userName =
     sessionStorage.getItem("userName");
+	if(userName){
+
+	    document.getElementById("welcomeText")
+	        .innerText =
+	        "Welcome back, " + userName + "!";
+
+	}
 
 const userRole =
     sessionStorage.getItem("userRole");
@@ -13,12 +20,7 @@ const role =
 	    document.getElementById("adminLink")
 	        .style.display = "none";
 	}
-if(userName){
 
-    document.getElementById("welcomeText")
-        .innerText =
-        "Welcome back, " + userName + " 👋";
-}
 
 if(userRole){
 
