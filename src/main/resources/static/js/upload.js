@@ -33,13 +33,18 @@ async function uploadFile() {
     );
 
     const response =
-        await fetch(
-            "http://localhost:8080/api/resources/upload",
-            {
-                method:"POST",
-                body:formData
-            }
-        );
+	await fetch(
+	    "/api/resources/upload",
+	    {
+	        method:"POST",
+	        headers:{
+	            "Authorization":
+	                "Bearer " +
+	                localStorage.getItem("token")
+	        },
+	        body:formData
+	    }
+	);
 
     const result =
         await response.text();

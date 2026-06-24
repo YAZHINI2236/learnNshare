@@ -3,9 +3,16 @@ loadResources();
 async function loadResources() {
 
     const response =
-        await fetch(
-            "http://localhost:8080/api/resources"
-        );
+	await fetch(
+	    "/api/resources",
+	    {
+	        headers:{
+	            "Authorization":
+	                "Bearer " +
+	                localStorage.getItem("token")
+	        }
+	    }
+	);
 
     const data =
         await response.json();
@@ -57,7 +64,7 @@ function displayResources(data) {
 function downloadFile(id){
 
     window.open(
-        "http://localhost:8080/api/resources/download/" + id
+        "/api/resources/download/" + id
     );
 }
 
@@ -67,10 +74,16 @@ async function searchSubject() {
         document.getElementById("subject").value;
 
     const response =
-        await fetch(
-        "http://localhost:8080/api/resources/subject/"
-        + subject
-        );
+	await fetch(
+	    "/api/resources/subject/" + subject,
+	    {
+	        headers:{
+	            "Authorization":
+	                "Bearer " +
+	                localStorage.getItem("token")
+	        }
+	    }
+	);
 
     const data =
         await response.json();
@@ -83,14 +96,25 @@ async function deleteResource(id){
         return;
     }
 
-    await fetch(
-        "http://localhost:8080/api/resources/" + id,
-        {
-            method:"DELETE"
-        }
-    );
+	const response = await fetch(
+	    "/api/resources/" + id,
+	    {
+	        method:"DELETE",
+	        headers:{
+	            "Authorization":
+	                "Bearer " +
+	                localStorage.getItem("token")
+	        }
+	    }
+	);
 
-    alert("Deleted Successfully");
+	if(response.ok){
+	    alert("Deleted Successfully");
+	    loadResources();
+	}else{
+	    alert(response.status + " Delete Failed! only admin can delete resources");
+	}
+
 
     loadResources();
 }

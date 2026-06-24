@@ -1,5 +1,7 @@
 package com.learnNshare.service;
+import com.learnNshare.dto.LoginResponseDto;
 
+import com.learnNshare.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +19,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private JwtUtil jwtUtil;
    
     
 
@@ -26,35 +30,62 @@ public class UserService {
             return "Email Already Exists";
         }
 
+        String role = dto.getRole();
+
+        if("ADMIN".equals(role)) {
+
+            if(!dto.getPassword()
+                    .equals("LearnNshare@8124")) {
+
+                return "Invalid Admin Password";
+            }
+        }
+        System.out.println("ROLE RECEIVED = " + dto.getRole());
         User user = new User();
 
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
-        user.setPassword(passwordEncoder.encode(dto.getPassword()));
-        user.setRole("STUDENT");
+        user.setRole(role);
+
+        user.setPassword(
+                passwordEncoder.encode(
+                        dto.getPassword()
+                )
+        );
 
         userRepository.save(user);
 
         return "User Registered Successfully";
     }
-    public String loginUser(LoginDto dto) {
+    
+    public LoginResponseDto loginUser(LoginDto dto) {
 
         Optional<User> userOptional =
                 userRepository.findByEmail(dto.getEmail());
 
         if(userOptional.isEmpty()) {
-            return "User Not Found";
+            throw new RuntimeException("User Not Found");
         }
 
         User user = userOptional.get();
 
-        if(passwordEncoder.matches(dto.getPassword(),
+        if(passwordEncoder.matches(
+                dto.getPassword(),
                 user.getPassword())) {
 
-            return "Login Successful";
+            String token =
+                    jwtUtil.generateToken(
+                            user.getEmail(),
+                            user.getRole());
+
+            return new LoginResponseDto(
+                    token,
+                    user.getName(),
+                    user.getRole()
+            );
         }
 
-        return "Invalid Password";
+        throw new RuntimeException("Invalid Password");
     }
    
 }

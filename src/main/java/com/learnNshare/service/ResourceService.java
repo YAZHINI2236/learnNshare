@@ -1,15 +1,18 @@
 package com.learnNshare.service;
 import java.util.UUID;
+import java.util.Map;
+
+import com.cloudinary.Cloudinary;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+//import java.nio.file.Files;
+//import java.nio.file.Path;
+//import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
+//import org.springframework.core.io.Resource;
+//import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +24,8 @@ public class ResourceService {
 
     @Autowired
     private ResourceRepository resourceRepository;
+    @Autowired
+    private Cloudinary cloudinary;
 
     public String uploadResource(
             String title,
@@ -30,35 +35,36 @@ public class ResourceService {
             Long uploadedBy,
             MultipartFile file) throws IOException {
 
+
     	String originalFileName = file.getOriginalFilename();
 
-    	String fileName = UUID.randomUUID() + "_" + originalFileName;
+    	Map uploadResult = cloudinary.uploader().upload(
+    	        file.getBytes(),
+    	        Map.of(
+    	            "resource_type", "raw",
+    	            "public_id", UUID.randomUUID().toString()
+    	        )
+    	);
 
-        Path uploadPath = Paths.get("uploads");
+    	String fileUrl = uploadResult.get("secure_url").toString();
 
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
-        }
+    	StudyResource resource = new StudyResource();
 
-        Path filePath = uploadPath.resolve(fileName);
+    	resource.setTitle(title);
+    	resource.setSubject(subject);
+    	resource.setSemester(semester);
+    	resource.setResourceType(resourceType);
+    	resource.setOriginalFileName(originalFileName);
 
-        Files.copy(file.getInputStream(), filePath);
+    	resource.setFileName(originalFileName);
+    	resource.setFilePath(fileUrl);
 
-        StudyResource resource = new StudyResource();
+    	resource.setUploadedBy(uploadedBy);
+    	resource.setUploadDate(LocalDateTime.now());
 
-        resource.setTitle(title);
-        resource.setSubject(subject);
-        resource.setSemester(semester);
-        resource.setResourceType(resourceType);
-        resource.setOriginalFileName(originalFileName);
-        resource.setFileName(fileName);
-        resource.setFilePath(filePath.toString());
-        resource.setUploadedBy(uploadedBy);
-        resource.setUploadDate(LocalDateTime.now());
+    	resourceRepository.save(resource);
 
-        resourceRepository.save(resource);
-
-        return "File Uploaded Successfully";
+    	return "File Uploaded Successfully";
     }
     public List<StudyResource> getAllResources() {
         return resourceRepository.findAll();
@@ -72,16 +78,27 @@ public class ResourceService {
     public List<StudyResource> getResourcesByType(String resourceType) {
         return resourceRepository.findByResourceType(resourceType);
     }
-    public Resource downloadFile(Long resourceId) throws Exception {
+    
+    public String downloadFile(Long resourceId) {
 
         StudyResource studyResource =
                 resourceRepository.findById(resourceId)
-                .orElseThrow(() -> new RuntimeException("Resource Not Found"));
+                .orElseThrow(() ->
+                        new RuntimeException("Resource Not Found"));
 
-        Path path = Paths.get(studyResource.getFilePath());
-
-        return new UrlResource(path.toUri());
+        return studyResource.getFilePath();
     }
+    
+//    public Resource downloadFile(Long resourceId) throws Exception {
+//
+//        StudyResource studyResource =
+//                resourceRepository.findById(resourceId)
+//                .orElseThrow(() -> new RuntimeException("Resource Not Found"));
+//
+//        Path path = Paths.get(studyResource.getFilePath());
+//
+//        return new UrlResource(path.toUri());
+//    }
     public String deleteResource(Long id) {
 
         resourceRepository.deleteById(id);

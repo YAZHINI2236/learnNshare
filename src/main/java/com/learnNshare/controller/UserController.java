@@ -1,5 +1,5 @@
 package com.learnNshare.controller;
-
+import com.learnNshare.dto.LoginResponseDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +18,9 @@ public class UserController {
     public String registerUser(@RequestBody UserRegistrationDto dto) {
 
         return userService.registerUser(dto);
-    }
-    @PostMapping("/login")
-    public String loginUser(@RequestBody LoginDto dto) {
+    }@PostMapping("/login")
+    public LoginResponseDto loginUser(
+            @RequestBody LoginDto dto) {
 
         return userService.loginUser(dto);
     }

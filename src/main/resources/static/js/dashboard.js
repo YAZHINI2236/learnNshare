@@ -1,14 +1,21 @@
-const email =
-    sessionStorage.getItem("userEmail");
+const userName =
+    sessionStorage.getItem("userName");
 
-if(email){
+const userRole =
+    sessionStorage.getItem("userRole");
 
-    const userName =
-        email.split("@")[0].toUpperCase();
+if(userName){
 
     document.getElementById("welcomeText")
         .innerText =
-        "Welcome back, " + userName;
+        "Welcome back, " + userName + " 👋";
+}
+
+if(userRole){
+
+    document.getElementById("roleText")
+        .innerText =
+        "Role : " + userRole;
 }
 
 function goToUpload(){
@@ -22,11 +29,13 @@ function goToResources(){
     window.location.href =
         "/pages/resources.html";
 }
+
 function logout(){
 
     if(confirm("Are you sure you want to logout?")){
 
         sessionStorage.clear();
+        localStorage.removeItem("token");
 
         window.location.href =
             "/pages/login.html";
