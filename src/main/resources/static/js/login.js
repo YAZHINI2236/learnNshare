@@ -100,13 +100,13 @@ async function loginUser() {
 
     const data = await response.json();
 
+	sessionStorage.setItem("userEmail", email);
+
 	localStorage.setItem("token", data.token);
 
 	sessionStorage.setItem("userName", data.name);
 
 	sessionStorage.setItem("userRole", data.role);
-
-	sessionStorage.setItem("userEmail", email);
 
     document.getElementById("loginMessage").innerText =
         "Login Successful";

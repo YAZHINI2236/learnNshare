@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.learnNshare.dto.LoginDto;
 import com.learnNshare.dto.UserRegistrationDto;
+import com.learnNshare.entity.User;
 import com.learnNshare.service.UserService;
 
 @RestController
@@ -18,11 +19,17 @@ public class UserController {
     public String registerUser(@RequestBody UserRegistrationDto dto) {
 
         return userService.registerUser(dto);
-    }@PostMapping("/login")
+    }
+    @PostMapping("/login")
     public LoginResponseDto loginUser(
             @RequestBody LoginDto dto) {
 
         return userService.loginUser(dto);
+    }
+    @GetMapping("/all")
+    public java.util.List<User> getAllUsers() {
+
+        return userService.getAllUsers();
     }
     
 }

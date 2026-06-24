@@ -22,8 +22,10 @@ public class UserService {
     @Autowired
     private JwtUtil jwtUtil;
    
-    
+    public java.util.List<User> getAllUsers() {
 
+        return userRepository.findAll();
+    }
     public String registerUser(UserRegistrationDto dto) {
 
         if(userRepository.findByEmail(dto.getEmail()).isPresent()) {

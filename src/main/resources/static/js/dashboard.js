@@ -3,7 +3,16 @@ const userName =
 
 const userRole =
     sessionStorage.getItem("userRole");
+	sessionStorage.setItem("userRole", data.role);
 
+const role =
+	    sessionStorage.getItem("userRole");
+
+	if(role !== "ADMIN"){
+
+	    document.getElementById("adminLink")
+	        .style.display = "none";
+	}
 if(userName){
 
     document.getElementById("welcomeText")

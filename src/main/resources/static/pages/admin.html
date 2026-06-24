@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LearnNShare Admin Panel</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#f3f8f7;
+    min-height:100vh;
+    color:#143434;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:rgba(31,122,119,0.08);
+    left:-150px;
+    top:-100px;
+    z-index:-1;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:rgba(31,122,119,0.08);
+    right:-150px;
+    bottom:-150px;
+    z-index:-1;
+}
+
+.header{
+    padding:40px 80px 20px;
+}
+
+.logo{
+    font-size:4rem;
+    font-weight:300;
+    color:#1f7a77;
+}
+
+.subtitle{
+    color:#666;
+    margin-top:10px;
+    font-size:1.2rem;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:30px auto;
+}
+
+.card{
+    background:white;
+    border-radius:25px;
+    padding:35px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.card h2{
+    color:#1f7a77;
+    font-size:2rem;
+    margin-bottom:25px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+thead{
+    background:#1f7a77;
+    color:white;
+}
+
+th{
+    padding:18px;
+    text-align:left;
+    font-size:1rem;
+}
+
+td{
+    padding:18px;
+    border-bottom:1px solid #eee;
+}
+
+tr:hover{
+    background:#f8fbfb;
+}
+
+.back-btn{
+    display:inline-block;
+    margin-top:25px;
+    text-decoration:none;
+    background:#1f7a77;
+    color:white;
+    padding:12px 25px;
+    border-radius:12px;
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    transform:translateY(-2px);
+}
+
+</style>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo">LearnNShare</div>
+    <div class="subtitle">Administrator Dashboard</div>
+</div>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Registered Users</h2>
+
+        <table id="userTable">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+
+        </table>
+
+        <a href="/pages/dashboard.html" class="back-btn">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+<script src="/js/admin.js"></script>
+
+</body>
+</html>

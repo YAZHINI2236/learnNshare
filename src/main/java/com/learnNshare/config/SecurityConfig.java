@@ -45,7 +45,9 @@ public class SecurityConfig {
             		.requestMatchers(
             		        "/api/resources/download/**")
             		.permitAll()
-
+            		.requestMatchers(
+            		        "/api/users/all")
+            		.hasRole("ADMIN")
                     .requestMatchers(
                             org.springframework.http.HttpMethod.DELETE,
                             "/api/resources/**")
