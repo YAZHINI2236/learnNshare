@@ -31,3 +31,14 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### LearnNShare local configuration ###
+src/main/resources/application.properties
+
+### Uploaded files ###
+uploads/
+
+### Environment files ###
+.env
+.env.*
+!.env.example
